@@ -25,7 +25,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--epoch', type=int, default=0, help='starting epoch')
 parser.add_argument('--n_epochs', type=int, default=20, help='number of epochs of training')
 parser.add_argument('--batchSize', type=int, default=4, help='size of the batches')
-parser.add_argument('--dataroot', type=str, default='datasets/photo2ukiyoe2vangogh/', help='root directory of the dataset')
+parser.add_argument('--dataroot', type=str, default='datasets/vangogh2photo/', help='root directory of the dataset')
 parser.add_argument('--lr', type=float, default=0.0002, help='initial learning rate')
 parser.add_argument('--decay_epoch', type=int, default=10,
                     help='epoch to start linearly decaying the learning rate to 0')
@@ -42,7 +42,7 @@ parser.add_argument('--norm', type=str, default='instance', help='instance norma
 parser.add_argument('--cuda', action='store_true', help='use GPU computation', default=True)
 parser.add_argument('--n_cpu', type=int, default=8, help='number of cpu threads to use during batch generation')
 parser.add_argument('--log_int', type=int, default=50, help='number of cpu threads to use during batch generation')
-parser.add_argument('--style_image', type=str, default='images/style-images/rain-princess.jpg', help='root directory of the dataset')
+parser.add_argument('--style_image', type=str, default='images/style-images/udnie.jpg', help='root directory of the dataset')
 parser.add_argument("--rc_weight", type=float, default=2.,
                                   help="reconstruction weight, default is 2")
 parser.add_argument("--identity_weight", type=float, default=5.,
@@ -59,7 +59,7 @@ parser.add_argument("--alpha", type=float, default=0.5,
                                   help="alpha for dirichlet")
 parser.add_argument('--output_dir', type=str, default='output_final', help='output directory')
 
-parser.add_argument('--data_order', nargs='+', default=['A','B', 'C'])
+parser.add_argument('--data_order', nargs='+', default=['B', 'A'])
 
 opt = parser.parse_args()
 print(opt)
@@ -153,18 +153,18 @@ style = style.repeat(opt.batchSize, 1, 1, 1).to(device)
 features_style = vgg(utils_pl.normalize_batch(style))
 gram_style = [utils_pl.gram_matrix(y) for y in features_style]
 
-### for perceptual loss ###
-
-for i, batch in enumerate(dataloader):
-    real_C = Variable(input_C.copy_(batch['C']))
-    real_perceptual = vgg(real_C.detach())
-    break
+# ### for perceptual loss ###
+#
+# for i, batch in enumerate(dataloader):
+#     real_C = Variable(input_C.copy_(batch['C']))
+#     real_perceptual = vgg(real_C.detach())
+#     break
 ###### Training ######
 for epoch in range(opt.epoch, opt.n_epochs):
     for i, batch in enumerate(dataloader):
         real_A = Variable(input_A.copy_(batch['A']))
         real_B = Variable(input_B.copy_(batch['B']))
-        real_C = Variable(input_C.copy_(batch['C']))
+        # real_C = Variable(input_C.copy_(batch['C']))
         batch_size = real_A.size()[0]
         cond = Variable(dirichlet.sample_n(batch_size)).cuda()
         cond0 = cond[:, 0]
