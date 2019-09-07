@@ -24,6 +24,8 @@ The concept of sym-parameter.
 
 Overall Structure of SGN for Three Different Losses.
 
+#### Video translation result of SGN : [SGN-Video](https://youtu.be/i1XsGEUpfrs)
+
 
 
 ## Train
@@ -60,7 +62,23 @@ python train.py --dataroot 'datasets/vangogh2photo/' --style_image 'images/style
 
 ## Test
 
-Pre-trained Models and Test code will be available soon.
+The pre-trained models can be downloaded from [Google Drive](https://drive.google.com/open?id=137-61DU9u05lF7bOfwn1ptW-KJw23rGW).
+
+Copy the models in pretrained/
+
+
+
+### Test
+
+```
+python test.py --dataroot <data_dir> --generator <trained_file>
+```
+
+Test Model1 with pre-trained check point.
+
+```
+python test.py --dataroot 'datasets/vangogh2photo' --generator 'pretrained/Model1.pth'
+```
 
 
 
