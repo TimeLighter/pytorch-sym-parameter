@@ -2,7 +2,7 @@
 
 This repository is official Pytorch implementations of SGN in the following paper.
 
-Simyung Chang, SeongUk Park, John Yang and Nojun Kwak, "Image Translation to Mixed-Domain using Sym-Parameterized Generative Network", ICCV2019,  [arXiv](https://arxiv.org/abs/1811.12362)
+Simyung Chang, SeongUk Park, John Yang and Nojun Kwak, "Sym-Parameterized Dynamic Inference for Mixed-Domain Image Translation", ICCV2019,  [arXiv](https://arxiv.org/abs/1811.12362)
 
 This code is built on [Pytorch-CycleGAN](https://github.com/aitorzip/PyTorch-CycleGAN) and tested on Pytorch 0.4.1.
 
